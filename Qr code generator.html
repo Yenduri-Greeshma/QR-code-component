@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>QR Code Generator</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ margin: 0;
+ background-color: hashtag#0cbde9;
+ }
+ .container {
+ text-align: center;
+ padding: 20px;
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ background-color: hashtag#fff;
+ }
+ input {
+ padding: 10px;
+ width: 80%;
+ margin-bottom: 10px;
+ border: 1px solid hashtag#ccc;
+ border-radius: 5px;
+ }
+ button {
+ padding: 10px 20px;
+ border: none;
+ border-radius: 5px;
+ background-color: hashtag#007bff;
+ color: hashtag#fff;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: hashtag#0563c9;
+ }
+ hashtag#qrcode {
+ margin-top: 20px;
+ }
+ canvas {
+ margin-top: 20px;
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <h1>QR Code Generator</h1>
+ <input type="text" id="text-input" placeholder="Enter text or URL" />
+ <button id="generate-btn">Generate QR Code</button>
+ <div id="qrcode"></div>
+ </div>
+ <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+ <script>
+ document.getElementById('generate-btn').addEventListener('click', function() {
+ const text = document.getElementById('text-input').value;
+ if (text) {
+ generateQRCode(text);
+ } else {
+ alert('Please enter some text or URL to generate the QR code.');
+ }
+ });
+
+ function generateQRCode(text) {
+ const qrcodeContainer = document.getElementById('qrcode');
+ qrcodeContainer.innerHTML = '';
+ const canvas = document.createElement('canvas');
+ qrcodeContainer.appendChild(canvas);
+ QRCode.toCanvas(canvas, text, { width: 256, margin: 2 }, function(error) {
+ if (error) console.error(error);
+ console.log('QR code generated!');
+ });
+ }
+ </script>
+</body>
+</html>
+
